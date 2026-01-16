@@ -1,7 +1,9 @@
 let bookCardRef = document.getElementById("bookCard");
 let srcLikeHeart = "./assets/icons/heart_like.png";
 let srcUnLikeHeart = "./assets/icons/heart_unlike.png";
+let send = "./assets/icons/send.png";
 let src = "./assets/img/book-cover.png";
+let alt = "Book Cover";
 
 let books = [
   {
@@ -199,49 +201,10 @@ let books = [
 ];
 console.log(books);
 
-console.log(books[0].comments);
-console.log(bookCardRef.innerHTML);
-
 function renderCard() {
-  let alt = "Book Cover";
   bookCardRef.innerHTML = "";
   for (let bookIndex = 0; bookIndex < books.length; bookIndex++) {
-    bookCardRef.innerHTML += `
- <div class="card">
-    <h2>${books[bookIndex].name}</h2>
-    <img src="${src}" alt="${alt} + " " + ${books[bookIndex].name}}">
- 
-      <div class="card-content">
-        <p>${books[bookIndex].price} €</p>
-          <div class="like-area">
-            <p>${books[bookIndex].likes}</p>
-            <img src="${srcUnLikeHeart}" alt="Like Button"
-    }}">
-          </div>
-      </div>
- 
-      <div class="card-info-area">
-        <div class="card-area-single-info">
-            <p>Author</p>
-            <p>:${books[bookIndex].author}</P>
-        </div>
-        <div class="card-area-single-info">
-            <p>Erscheinungsjahr</p>
-            <p>:${books[bookIndex].publishedYear}</P>
-        </div> 
-        <div class="card-area-single-info">
-            <p>Genre</p>
-            <p>:${books[bookIndex].genre}</P>
-        </div> 
-        
-            ${getComments(bookIndex)}
-        
-     <div class="card-comment-input-area">
-     <input id="comment-input" type="text" alt="Coments input field" placeholder="schreibe dein kommentar" />
-      <img src="${srcUnLikeHeart}" alt="Message send Button">
-      
-     </div>
-  </div>`;
+    bookCardRef.innerHTML += cardTamplate(bookIndex);
   }
 }
 
@@ -252,14 +215,7 @@ function getComments(bookIndex) {
     commentsIndex < books[bookIndex].comments.length;
     commentsIndex++
   ) {
-    comments += `
-    <div class="card-comment-area">
-     <p>${books[bookIndex].comments[commentsIndex].name}</p>
-     <p>:${books[bookIndex].comments[commentsIndex].comment}</p>
-     </div>
-     
-
-            `;
+    comments += commentsTamplate(bookIndex, commentsIndex);
   }
   return comments;
 }
