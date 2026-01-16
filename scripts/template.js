@@ -18,10 +18,10 @@ function cardTamplate(bookIndex) {
     <img src="${src}" alt="${alt} + " " + ${books[bookIndex].name}}">
  </div>
       <div class="card-content">
-        <p>${books[bookIndex].price} €</p>
+        <p>${books[bookIndex].price.toFixed(2)} €</p>
           <div class="like-area">
             <p>${books[bookIndex].likes}</p>
-            <img src="${srcUnLikeHeart}" alt="Like Button">
+            <img id="heartImg${bookIndex}" onclick="changeHeart()" src="${srcUnLikeHeart}" alt="Like Button">
           </div>
       </div>
       <table>

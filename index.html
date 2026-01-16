@@ -6,6 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bookstore</title>
+    <script src="./scripts/db.js"></script>
     <script src="./scripts/template.js"></script>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="./styles/standard.css" />
@@ -15,16 +16,22 @@
       <div class="container-inner"></div>
       <h1>Bookstore</h1>
     </header>
-    <main class="container">
-      <div class="container_inner">
-        <section
-          id="bookCard"
-          class="card-section"
-          aria-label="Bookstore"
-        ></section>
-      </div>
-    </main>
-  </body>
 
-  <script src="./script.js"></script>
+    <main>
+      <section class="card-section" aria-label="Bookstore">
+        <div class="container">
+          <div id="bookCard" class="container-inner cards"></div>
+        </div>
+      </section>
+    </main>
+
+    <img
+      id="heartImg2"
+      src="./assets/icons/heart_unlike.png"
+      alt=""
+      srcset=""
+      onclick="changeHeartt()"
+    />
+    <script src="./script.js"></script>
+  </body>
 </html>
