@@ -26,16 +26,17 @@ function getComments(bookIndex) {
   }
   return comments;
 }
-console.log(document.getElementById("heartImg2").attributes[1].value);
-console.log(document.getElementById("heartImg"));
 
-function changeHeart() {
+function changeHeart(bookIndex) {
   if (
-    document.getElementById("heartImg").attributes[1].value == srcUnLikeHeart
+    document.getElementById(`heartImg-${bookIndex}`).attributes[1].value ==
+    srcUnLikeHeart
   ) {
-    document.getElementById("heartImg").attributes[1].value = srcLikeHeart;
+    document.getElementById(`heartImg-${bookIndex}`).attributes[1].value =
+      srcLikeHeart;
   } else {
-    document.getElementById("heartImg").attributes[1].value = srcUnLikeHeart;
+    document.getElementById(`heartImg-${bookIndex}`).attributes[1].value =
+      srcUnLikeHeart;
   }
 }
 
@@ -44,6 +45,8 @@ function changeHeartt() {
     document.getElementById("heartImg2").attributes[1].value == srcUnLikeHeart
   ) {
     document.getElementById("heartImg2").attributes[1].value = srcLikeHeart;
+    console.log(document.getElementById("heartImg2").src);
+    console.log(document.getElementById("heartImg").src);
   } else {
     document.getElementById("heartImg2").attributes[1].value = srcUnLikeHeart;
   }
