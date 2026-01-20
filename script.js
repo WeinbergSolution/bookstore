@@ -1,15 +1,14 @@
 let bookCardRef = document.getElementById("bookCard");
-let hearImageChange = document.getElementById("heartImg");
+
 let srcLikeHeart = "./assets/icons/heart_like.png";
 let srcUnLikeHeart = "./assets/icons/heart_unlike.png";
 let send = "./assets/icons/send.png";
-let src = "./assets/img/book-cover.png";
 let alt = "Book Cover";
 
-console.log(books);
-
 function renderCard() {
+  getFromLocalStorage();
   bookCardRef.innerHTML = "";
+
   for (let bookIndex = 0; bookIndex < books.length; bookIndex++) {
     bookCardRef.innerHTML += cardTamplate(bookIndex);
   }
@@ -28,26 +27,67 @@ function getComments(bookIndex) {
 }
 
 function changeHeart(bookIndex) {
-  if (
-    document.getElementById(`heartImg-${bookIndex}`).attributes[1].value ==
-    srcUnLikeHeart
-  ) {
-    document.getElementById(`heartImg-${bookIndex}`).attributes[1].value =
-      srcLikeHeart;
+  books[bookIndex].liked = !books[bookIndex].liked;
+
+  if (books[bookIndex].liked) {
+    books[bookIndex].likes += 1;
   } else {
-    document.getElementById(`heartImg-${bookIndex}`).attributes[1].value =
-      srcUnLikeHeart;
+    books[bookIndex].likes -= 1;
+  }
+
+  const heartImg = document.getElementById(`heartImg-${bookIndex}`);
+  const heartBtn = document.getElementById(`heartBtn-${bookIndex}`);
+  const likeEl = document.getElementById(`likeCount-${bookIndex}`);
+
+  if (heartImg) {
+    heartImg.src = books[bookIndex].liked ? srcLikeHeart : srcUnLikeHeart;
+  }
+
+  if (heartBtn) {
+    heartBtn.setAttribute("aria-pressed", String(books[bookIndex].liked));
+    heartBtn.setAttribute(
+      "aria-label",
+      books[bookIndex].liked
+        ? `Gefällt mir entfernen für ${books[bookIndex].name}`
+        : `Gefällt mir für ${books[bookIndex].name}`,
+    );
+  }
+
+  if (likeEl) {
+    likeEl.textContent = books[bookIndex].likes;
+  }
+
+  saveToLocalSTorage();
+}
+
+function saveToLocalSTorage() {
+  localStorage.setItem("books", JSON.stringify(books));
+}
+
+function getFromLocalStorage() {
+  let myBooksArray = JSON.parse(localStorage.getItem("books"));
+  if (myBooksArray !== null) {
+    books = myBooksArray;
   }
 }
 
-function changeHeartt() {
-  if (
-    document.getElementById("heartImg2").attributes[1].value == srcUnLikeHeart
-  ) {
-    document.getElementById("heartImg2").attributes[1].value = srcLikeHeart;
-    console.log(document.getElementById("heartImg2").src);
-    console.log(document.getElementById("heartImg").src);
-  } else {
-    document.getElementById("heartImg2").attributes[1].value = srcUnLikeHeart;
-  }
+function addCommentToLocalStorage(bookIndex) {
+  const inputRef = document.getElementById(`comment-input-${bookIndex}`);
+  const commentText = inputRef.value.trim();
+
+  if (commentText === "") return;
+
+  books[bookIndex].comments.unshift({
+    name: "Anonymous",
+    comment: commentText,
+  });
+
+  saveToLocalSTorage();
+  renderCard();
+  inputRef.value = "";
 }
+
+/* wichtig für inline onload + onclick */
+window.renderCard = renderCard;
+window.changeHeart = changeHeart;
+window.addCommentToLocalStorage = addCommentToLocalStorage;

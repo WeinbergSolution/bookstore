@@ -1,29 +1,49 @@
-<!--  -->
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bookstore</title>
-    <script src="./scripts/db.js"></script>
-    <script src="./scripts/template.js"></script>
+
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="./styles/standard.css" />
+
+    <script src="./scripts/db.js"></script>
+    <script src="./scripts/template.js"></script>
   </head>
+
   <body onload="renderCard()">
-    <header>
-      <div class="container-inner"></div>
-      <h1>Bookstore</h1>
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand" aria-label="Bookstore Startseite">
+          <div class="brand-dot" aria-hidden="true"></div>
+          <h1>Bookstore</h1>
+        </div>
+
+        <p class="header-badge" aria-label="Hinweis">
+          <span class="badge-glow" aria-hidden="true"></span>
+          <span>Neu & Beliebt</span>
+        </p>
+      </div>
     </header>
 
-    <main>
-      <section class="card-section" aria-label="Bookstore">
+    <main id="main" class="page">
+      <section class="card-section" aria-label="Bücherliste">
         <div class="container">
-          <div id="bookCard" class="container-inner cards"></div>
+          <div id="bookCard" class="cards" role="list"></div>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© Bookstore</span>
+        <span class="footer-dot" aria-hidden="true">•</span>
+        <span>Pascal Weinberg </span>
+      </div>
+    </footer>
 
     <script src="./script.js"></script>
   </body>
