@@ -27,17 +27,9 @@ function getComments(bookIndex) {
 }
 
 function changeHeart(bookIndex) {
-  books[bookIndex].liked = !books[bookIndex].liked;
-
-  if (books[bookIndex].liked) {
-    books[bookIndex].likes += 1;
-  } else {
-    books[bookIndex].likes -= 1;
-  }
-
+  changeLikeCount(bookIndex);
   const heartImg = document.getElementById(`heartImg-${bookIndex}`);
   const heartBtn = document.getElementById(`heartBtn-${bookIndex}`);
-  const likeEl = document.getElementById(`likeCount-${bookIndex}`);
 
   if (heartImg) {
     heartImg.src = books[bookIndex].liked ? srcLikeHeart : srcUnLikeHeart;
@@ -52,12 +44,22 @@ function changeHeart(bookIndex) {
         : `Gefällt mir für ${books[bookIndex].name}`,
     );
   }
+  saveToLocalSTorage();
+}
+
+function changeLikeCount(bookIndex) {
+  const likeEl = document.getElementById(`likeCount-${bookIndex}`);
+  books[bookIndex].liked = !books[bookIndex].liked;
+
+  if (books[bookIndex].liked) {
+    books[bookIndex].likes += 1;
+  } else {
+    books[bookIndex].likes -= 1;
+  }
 
   if (likeEl) {
     likeEl.textContent = books[bookIndex].likes;
   }
-
-  saveToLocalSTorage();
 }
 
 function saveToLocalSTorage() {
